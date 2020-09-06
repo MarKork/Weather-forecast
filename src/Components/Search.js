@@ -8,80 +8,52 @@ const Search = ({query, lng, lat}) =>{
     const [isLoading, setisLoading] = useState(false)
 
     useEffect(() => {
-        if(query){
-            fetchingDataQuery()
-        }   
         if(lng){
             fetchingDataLngLat()
-        }  
-    }, [lng || query])
-
+        }
+        else if(query){
+            fetchingDataQuery(query)
+        }else{
+            let currentQuery=localStorage.getItem('place')
+            if(currentQuery){
+                fetchingDataQuery(currentQuery)
+            }
+        }   
+    }, [lng||query])
+    
+    
     //Fetching the weather data according to longitude and latitude from map
     const fetchingDataLngLat = async()=>{
         if(weather!==null){
-            setElementsHidden()
+            setElementsHidden() 
         }
         setisLoading(true)
         const data = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&lang=fi&APPID=af58c95c7c728dd1e20c6d499b294f78`)
         setWeather(data.data)        
         setisLoading(false)
         if(weather!==null){
-            setElementsVisible()
+            setElementsVisible() 
             let info=document.getElementById("info")
             info.style.display='block'
         }
     }
 
     //Fetching the data according to the input of the input box 
-    const fetchingDataQuery = async()=>{
+    const fetchingDataQuery = async(query)=>{
         if(weather!==null){
-            setElementsHidden()
+            setElementsHidden() 
         }
         setisLoading(true)
         const data = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=metric&lang=fi&APPID=af58c95c7c728dd1e20c6d499b294f78`)
         setWeather(data.data)
         setisLoading(false)   
         if(weather!==null){
-            setElementsVisible()
+            setElementsVisible() 
+            let info=document.getElementById("info")
+            info.style.display='block'
         }
     }
-
-    const setElementsHidden = () =>{
-        document.getElementsByTagName("h1")[0].style.display="none"
-        let ptags = document.getElementsByTagName("p")
-        for (let i = 0; i < ptags.length; i++) {
-            ptags[i].style.visibility="hidden"
-        }
-        let h2tags = document.getElementsByTagName("h2")
-        for (let i = 0; i < h2tags.length; i++) {
-            h2tags[i].style.visibility="hidden"
-        }
-        let imgtags = document.getElementsByTagName("img")
-        for (let i = 0; i < imgtags.length; i++) {
-            imgtags[i].style.visibility="hidden"
-        }
-    }
-
-    const setElementsVisible = () =>{
-        document.getElementsByTagName("h1")[0].style.display="block"
-        let ptags = document.getElementsByTagName("p")
-        for (let i = 0; i < ptags.length; i++) {
-            ptags[i].style.visibility="visible"
-        }
-        let h2tags = document.getElementsByTagName("h2")
-        for (let i = 0; i < h2tags.length; i++) {
-            h2tags[i].style.visibility="visible"
-        }
-        let imgtags = document.getElementsByTagName("img")
-        for (let i = 0; i < imgtags.length; i++) {
-            imgtags[i].style.visibility="visible"
-        }
-    }
-
-    if(weather){
-        localStorage.setItem('place', weather.city.name)
-    }
-
+    
     return(
         <div id="info">
             {isLoading && <div className="loader"></div>}
@@ -93,6 +65,38 @@ const Search = ({query, lng, lat}) =>{
             :null}
         </div>
     )
+}
+
+const setElementsHidden = () =>{
+    document.getElementsByTagName("h1")[0].style.display="none"
+    let ptags = document.getElementsByTagName("p")
+    for (let i = 0; i < ptags.length; i++) {
+        ptags[i].style.visibility="hidden"
+    }
+    let h2tags = document.getElementsByTagName("h2")
+    for (let i = 0; i < h2tags.length; i++) {
+        h2tags[i].style.visibility="hidden"
+    }
+    let imgtags = document.getElementsByTagName("img")
+    for (let i = 0; i < imgtags.length; i++) {
+        imgtags[i].style.visibility="hidden"
+    }
+}
+
+const setElementsVisible = () =>{
+    document.getElementsByTagName("h1")[0].style.display="block"
+    let ptags = document.getElementsByTagName("p")
+    for (let i = 0; i < ptags.length; i++) {
+        ptags[i].style.visibility="visible"
+    }
+    let h2tags = document.getElementsByTagName("h2")
+    for (let i = 0; i < h2tags.length; i++) {
+        h2tags[i].style.visibility="visible"
+    }
+    let imgtags = document.getElementsByTagName("img")
+    for (let i = 0; i < imgtags.length; i++) {
+        imgtags[i].style.visibility="visible"
+    }
 }
 
 export default Search;

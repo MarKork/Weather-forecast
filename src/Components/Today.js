@@ -4,6 +4,9 @@ import Snow from "./Snow"
 import Rain from "./Rain"
 
 const Today = ({weather}) => {
+
+    let currentPlace=weather.city.name
+    localStorage.setItem('place', currentPlace)
     let later=[]
     for(let i = 1; i < 5; i++){
         later[i-1]=weather.list[i]
@@ -13,7 +16,6 @@ const Today = ({weather}) => {
         <div>
             <div className="today" id="today">
                 <h1 id="name-of-place">{weather.city.name}</h1>
-                
                 <div id="icon-side">
                     <Icon code={weather.list[0].weather[0].icon} width="200px" height="200px"/>
                 </div>
@@ -21,11 +23,10 @@ const Today = ({weather}) => {
                     <p id="main-temp">{Math.round(weather.list[0].main.temp)}°</p>
                     <p>tuntuu kuin {Math.round(weather.list[0].main.feels_like)}°</p>
                     <p>{weather.list[0].weather[0].description}</p>
-                    {weather.list[0].rain? <Rain item={weather.list[0]}/>:null}
-                    {weather.list[0].snow? <Snow item={weather.list[0]}/>:null}
+                    {weather.list[0].rain? <Rain item={weather.list[0]} align="left"/>:null}
+                    {weather.list[0].snow? <Snow item={weather.list[0]} align="left"/>:null}
                     <p>tuuli {Math.round(weather.list[0].wind.speed)} m/s</p>
                     <p>ilmankosteus {weather.list[0].main.humidity}%</p>
-                
                 </div>           
             </div>
             <div className="later-today" id="later-today">
@@ -37,16 +38,13 @@ const Today = ({weather}) => {
                                 <Icon code={item.weather[0].icon} width="80px" height="80px" />
                                 <p id="temp">{Math.round(item.main.temp)}°</p>
                             </div>
-                            
-                            <p>{item.weather[0].description}</p>
+                            <p id="description">{item.weather[0].description}</p>
                             {item.rain? <Rain item={item}/>:null}
                             {item.snow? <Snow item={item}/>:null}
                         </div>
                     )
                 })}
             </div>
-            
-                
         </div>   
     )
 }

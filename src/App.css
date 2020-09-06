@@ -11,7 +11,7 @@ body{
 }   
 
 body{
-	background-image: linear-gradient(25deg, #2b6ac9,  #d3e2f8);/*#518be1*/
+	background-image: linear-gradient(25deg, #2b6ac9,  #d3e2f8);
   min-height: 600px;
   background-attachment: fixed;
   background-position: center;
@@ -71,15 +71,19 @@ p{
 
 #weather-later{
   float:left;
-  padding: 20px;
   padding-bottom: 15px;
+  padding-left: 1px;
+  padding-right: 1px;
   width: 190px;
   padding-top: 0px;
 }
 
 .next-days{
   display: flex;
+  width: 100%;
+  text-align: center;
   justify-content: center;
+  margin-top: 15px;
   flex-wrap: wrap;
 }
 
@@ -88,6 +92,8 @@ p{
   padding: 20px;
   width: 190px;
   padding-top: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 #main-temp{
@@ -116,17 +122,21 @@ p{
   text-align: center;
 }
 
+#amount{
+  text-align: center;
+}
+
 #time{
   font-weight: bold;
 }
 
 #input-box{
-  cursor: default;;
+  cursor: default;
 }
 
 #map {
   height: 50vh;
-  width: automatic;
+  width: 100%;
   padding: 10px;
   text-align: center;
   position: static;
@@ -139,24 +149,85 @@ p{
   padding-left: 10px;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 992px){
+  #weather-later{
+    width: 160px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #next{
+    width: 160px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 768px){
   #next{
     box-sizing: border-box;
     float:left;
     padding: 20px;
-    width: 210px;
+    margin-left: 0px;
+    margin-right: 0px;
+    flex: 0 0 50%;
   }
   #weather-later{
     box-sizing: border-box;
     float:left;
     padding: 20px;
-    width: 210px;
+    margin-left: 0px;
+    margin-right: 0px;
+    flex: 0 0 50%;
   }
+  .later-today{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .next-days{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
   #input-box{
     cursor: default;
     width: 15ch;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  
+  #search-button{
+    font-size: 15px;
+    margin-right: 5px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #get-place-from-map{
+    font-size: 15px;
+    margin-right: 2px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 404px){
+  .later-today{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  .next-days{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
 }
 
 /* spinner */
